@@ -10,9 +10,13 @@
     "withGlobalTauri": true,
     "windows": [
       {
-        "title": "studytime",
-        "width": 800,
-        "height": 600
+        "title":"Study.Time",
+        "width": 1200,
+        "height": 800,
+        "decorations": true, 
+        "transparent": true,
+        "titleBarStyle": "Overlay",
+        "hiddenTitle": true
       }
     ],
     "security": {

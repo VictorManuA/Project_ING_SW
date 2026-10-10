@@ -1,0 +1,69 @@
+.sidebar-trigger-area {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    width: 20px;
+    z-index: 100;
+}
+.sidebar-flotante {
+    position: fixed;
+    left: 10px; 
+    top: 40px;
+    /*top: 50%;*/
+    /*transform: translateY(-50%);*/
+    bottom: 10px;
+
+    justify-content: center;      
+    /*justify-content: space-between;*/
+    
+    background-color: #adadb0;
+    border-radius: 32px; 
+    padding: 2px;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    box-shadow: 4px 0 30px rgba(0, 0, 0, 0.6);
+
+    transition: left 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+    z-index: 101;
+}
+
+/*APARICION*/
+/*.sidebar-trigger-area:hover + .sidebar-flotante, .sidebar-flotante:hover {
+    left: 0; 
+}*/
+.icon-btn {
+    background: transparent;
+    border: none;
+    color: #52525b;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%; 
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.2s ease;
+}
+
+.icon-btn:hover:not(.active) {
+    background-color: #18181b;
+    color: #e4e4e7; 
+}
+
+.icon-btn.active {
+    background-color: #dcfce3; 
+    color: #052e16; 
+    box-shadow: 0 0 12px rgba(220, 252, 227, 0.2); 
+}
+
+.contenido-principal {
+    padding: 40px 40px 40px 60px;
+}
+
+.icon-btn i {
+  font-size: 22px;
+}

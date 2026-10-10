@@ -1,0 +1,24 @@
+/* Asegúrate de que tu barra superior tenga user-select: none para que el cursor no intente seleccionar texto al arrastrar */
+.barra-superior {
+    height: 40px;
+    background-color: #09090b; 
+    display: flex;
+    justify-content: flex-start; 
+    align-items: center;
+    user-select: none;
+}
+
+.espacio_botones {
+    width: 80px; 
+    height: 100%;
+}
+
+.botones_barraS {
+    display: flex;
+    gap: 8px;
+}
+
+.espacio-libre {
+    flex: 1; 
+    height: 100%; 
+}

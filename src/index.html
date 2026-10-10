@@ -2,38 +2,41 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="stylesheet" href="styles.css" />
+    <!-- importante no quitar-->
+    <link rel="stylesheet" href="styles.css" >
+    <link rel="stylesheet" href="styles_menu.css">
+    <link rel="stylesheet" href="styles_barraS.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tauri App</title>
+    <title>Study.Time</title>
+    <!-- NO se si los vamos a utilizar pero los voy a dejer-->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <script type="module" src="/main.js" defer></script>
   </head>
 
   <body>
-    <main class="container">
-      <h1>Welcome to Tauri</h1>
+  <header class="barra-superior" data-tauri-drag-region>
+    <div class="espacio_botones" data-tauri-drag-region></div>
+    <div class="botones_barraS">
+        <button class="btn-top">Ajustes</button>
+        <button class="btn-top">Proyectos</button>
+    </div>
 
-      <div class="row">
-        <a href="https://tauri.app" target="_blank">
-          <img src="/assets/tauri.svg" class="logo tauri" alt="Tauri logo" />
-        </a>
-        <a
-          href="https://developer.mozilla.org/en-US/docs/Web/JavaScript"
-          target="_blank"
-        >
-          <img
-            src="/assets/javascript.svg"
-            class="logo vanilla"
-            alt="JavaScript logo"
-          />
-        </a>
-      </div>
-      <p>Click on the Tauri logo to learn more about the framework</p>
+    <div class="espacio-libre" data-tauri-drag-region></div>
 
-      <form class="row" id="greet-form">
-        <input id="greet-input" placeholder="Enter a name..." />
-        <button type="submit">Greet</button>
-      </form>
-      <p id="greet-msg"></p>
-    </main>
+  </header>
+  <div class="sidebar-trigger-area"></div>
+  <nav class="sidebar-flotante">
+    <button class="icon-btn active" title="Inicio"><i class="ph ph-house"></i></button>
+    <button class="icon-btn" title="Notas"><i class="ph ph-note"></i></button>
+    <button class="icon-btn" title="Temporizador"><i class="ph ph-timer"></i></button>
+    <button class="icon-btn" title="Perfil"><i class="ph ph-user"></i></button>
+  </nav>
+  <main class="contenido-principal">
+    <p>Lugar de trabajo</p>
+  </main>
   </body>
 </html>
