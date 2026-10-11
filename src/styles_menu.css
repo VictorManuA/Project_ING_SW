@@ -9,16 +9,15 @@
 .sidebar-flotante {
     position: fixed;
     left: 10px; 
-    top: 40px;
+    top: 50px;
     /*top: 50%;*/
     /*transform: translateY(-50%);*/
     bottom: 10px;
 
     justify-content: center;      
-    /*justify-content: space-between;*/
     
     background-color: #adadb0;
-    border-radius: 32px; 
+    border-radius: 10px; 
     padding: 2px;
     
     display: flex;
