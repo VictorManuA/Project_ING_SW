@@ -29,14 +29,32 @@
 
   </header>
   <div class="sidebar-trigger-area"></div>
-  <nav class="sidebar-flotante">
-    <button class="icon-btn active" title="Inicio"><i class="ph ph-house"></i></button>
-    <button class="icon-btn" title="Notas"><i class="ph ph-note"></i></button>
-    <button class="icon-btn" title="Temporizador"><i class="ph ph-timer"></i></button>
-    <button class="icon-btn" title="Perfil"><i class="ph ph-user"></i></button>
-  </nav>
+  <nav class="pestañas-laterales">
+    <button class="tab-btn active" title="Inicio"><i class="ph ph-house"></i></button>
+    <button class="tab-btn" title="Notas"><i class="ph ph-note"></i></button>
+    <button class="tab-btn" title="Temporizador"><i class="ph ph-timer"></i></button>
+    <button class="tab-btn" title="Perfil"><i class="ph ph-user"></i></button>
+</nav>
   <main class="contenido-principal">
-    <p>Lugar de trabajo</p>
+    <section id="vista-Inicio" class="vista-app">
+      <h2>Inicio</h2>
+      <p>Lugar de trabajo de MENU PRINCIPAL</p>
+    </section>
+    <section id="vista-Notas" class="vista-app oculta">
+      <h2>Tus Notas</h2>
+      <textarea placeholder="Escribe algo aquí..."></textarea>
+      <button id="btn-guardar-nota">Guardar Nota</button>
+    </section>
+    <section id="vista-Temporizador" class="vista-app oculta">
+      <h2>RELOJ</h2>
+      <div id="reloj">25:00</div>
+      <button id="btn-iniciar-tiempo">Iniciar</button>
+    </section>
+    <section id="vista-Perfil" class="vista-app oculta">
+      <h2>Perfil de Usuario</h2>
+      <p>Aquí irán tus estadísticas.</p>
+    </section>
+
   </main>
   </body>
 </html>

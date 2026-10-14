@@ -1,22 +1,20 @@
 .barra-superior {
-    height: 40px;
-    background-color: #09090b; 
+    height: 35px;
+    opacity: 1;
+    background-color: #709570; 
     display: flex;
     justify-content: flex-start; 
     align-items: center;
     user-select: none;
 }
-
 .espacio_botones {
     width: 80px; 
     height: 100%;
 }
-
 .botones_barraS {
     display: flex;
     gap: 8px;
 }
-
 .espacio-libre {
     flex: 1; 
     height: 100%; 
