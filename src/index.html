@@ -6,8 +6,10 @@
     <link rel="stylesheet" href="styles.css" >
     <link rel="stylesheet" href="styles_menu.css">
     <link rel="stylesheet" href="styles_barraS.css">
+    <link rel="stylesheet" href="stles_notas.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Study.Time</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <!-- NO se si los vamos a utilizar pero los voy a dejer-->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,15 +18,11 @@
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <script type="module" src="/main.js" defer></script>
   </head>
-
   <body>
   <header class="barra-superior" data-tauri-drag-region>
     <div class="espacio_botones" data-tauri-drag-region></div>
     <div class="botones_barraS">
-        <button class="btn-top">Ajustes</button>
-        <button class="btn-top">Proyectos</button>
     </div>
-
     <div class="espacio-libre" data-tauri-drag-region></div>
 
   </header>
@@ -41,18 +39,93 @@
       <p>Lugar de trabajo de MENU PRINCIPAL</p>
     </section>
     <section id="vista-Notas" class="vista-app oculta">
-      <h2>Tus Notas</h2>
-      <textarea placeholder="Escribe algo aquí..."></textarea>
-      <button id="btn-guardar-nota">Guardar Nota</button>
+    <div class="contenedor-notas-split">
+        <aside class="panel-archivos" id="panel-archivos">
+            <div class="header-archivos">
+                <h3>Tus Notas</h3>
+                <div class="acciones-archivos">
+                    <!-- Botón para nueva carpeta -->
+                    <button id="btn-nueva-carpeta" title="Nueva Carpeta"><i class="ph ph-folder-plus"></i></button>
+                    <!-- Botón para nueva nota -->
+                    <button id="btn-nueva-nota" title="Nueva Nota"><i class="ph ph-file-plus"></i></button>
+                </div>
+            </div>
+            
+            <!-- Lista dinámica de archivos y carpetas -->
+            <ul id="lista-archivos" class="arbol-archivos">
+                <!-- Se llenará con JavaScript -->
+            </ul>
+
+            <!-- NUEVO: Barra inferior para el Vault -->
+            <div class="footer-archivos">
+                <button id="btn-crear-vault" class="btn-vault">
+                    <i class="ph ph-vault"></i> <span>Abrir / Crear Vault</span>
+                </button>
+            </div>
+        </aside>
+        <!-- ESTE ES EL NUEVO DIVISOR -->
+        <div class="divisor-redimensionable" id="divisor-notas"></div>
+
+        <!-- Columna Derecha: Editor de Markdown -->
+                <!-- Columna Derecha: Editor de Markdown -->
+        <div class="panel-editor">
+            <div class="editor-herramientas">
+                <input type="text" id="nota-titulo" value="Modelo OSI" placeholder="Título de la nota...">
+                <div class="herramientas-derecha">
+                    <button id="btn-toggle-vista" class="btn-herramienta" title="Alternar Vista"><i class="ph ph-eye"></i> Vista Previa</button>
+                    <button id="btn-guardar-nota" class="btn-guardar"><i class="ph ph-floppy-disk"></i> Guardar</button>
+                </div>
+            </div>
+            
+            <!-- Contenedor principal de escritura y lectura -->
+            <div class="area-trabajo-nota">
+                <!-- Área de texto (Modo Edición) -->
+                <textarea id="nota-contenido" placeholder="Escribe aquí usando Markdown..."></textarea>
+                
+                <!-- Área de visualización (Modo Lectura) -->
+                <div id="nota-preview" class="markdown-view oculta"></div>
+            </div>
+
+            <!-- Barra de estado inferior -->
+            <div class="status-bar">
+                <span class="ruta-archivo" id="ruta-archivo">
+                    <i class="ph ph-folder-open"></i> /Documentos/StudyTime/Notas/Modelo_OSI.md
+                </span>
+                <span class="contador-palabras" id="contador-palabras">0 palabras</span>
+            </div>
+        </div>
+
+
+    </div>
     </section>
     <section id="vista-Temporizador" class="vista-app oculta">
       <h2>RELOJ</h2>
       <div id="reloj">25:00</div>
       <button id="btn-iniciar-tiempo">Iniciar</button>
     </section>
-    <section id="vista-Perfil" class="vista-app oculta">
-      <h2>Perfil de Usuario</h2>
-      <p>Aquí irán tus estadísticas.</p>
+        <section id="vista-Perfil" class="vista-app oculta">
+      <div class="contenedor-notas-split"> <!-- Agregué la clase para que se divida igual -->
+        
+        <!-- Columna Izquierda: Configuración (Sin IDs repetidos) -->
+        <aside class="panel-archivos">
+            <div class="header-archivos">
+                <h3>Configuración</h3>
+            </div>
+            <div style="padding: 15px;">
+                <button title="Ruta para guardar archivos" style="padding: 8px; border-radius: 6px;">Seleccionar Ruta</button>
+                <p style="margin-top: 10px; color: #18181b; font-family: monospace;">Ruta: /Documentos/StudyTime</p>
+            </div>
+        </aside>
+
+        <!-- Divisor (Sin ID repetido) -->
+        <div class="divisor-redimensionable"></div>
+
+        <!-- Columna Derecha (Puedes poner opciones aquí después) -->
+        <div class="panel-editor">
+            <h2>Opciones de Perfil</h2>
+        </div>
+
+      </div>
     </section>
 
   </main>

@@ -1,0 +1,315 @@
+/* --- LAYOUT DIVIDIDO PARA NOTAS --- */
+/* --- LAYOUT DIVIDIDO PARA NOTAS --- */
+.contenedor-notas-split {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    /* Quitamos el gap para que el divisor funcione correctamente */
+}
+
+/* --- PANEL IZQUIERDO --- */
+.panel-archivos {
+    width: 30%; /* Ancho inicial */
+    min-width: 150px; /* Para que no lo reduzcan a cero */
+    max-width: 60%; /* Límite máximo para no tapar el editor */
+    background-color: #a3a3a3;
+    border-radius: 12px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- DIVISOR REDIMENSIONABLE --- */
+.divisor-redimensionable {
+    width: 10px; /* Área donde puedes hacer clic */
+    margin: 0 5px; /* Separación visual de los paneles */
+    cursor: col-resize; /* Cambia el cursor al de flechas izq/der */
+    background-color: transparent;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+    flex-shrink: 0;
+}
+
+/* Efecto al pasar el mouse o al arrastrar */
+.divisor-redimensionable:hover, 
+.divisor-redimensionable.arrastrando {
+    background-color: #52525b;
+}
+
+/* --- PANEL DERECHO --- */
+.panel-editor {
+    flex-grow: 1; /* Esto hace que ocupe todo el espacio sobrante automáticamente */
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.header-archivos {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    color: #1f2937;
+    border-bottom: 2px solid #52525b;
+    padding-bottom: 10px;
+}
+
+.header-archivos h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.header-archivos button {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #1f2937;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.header-archivos button:hover {
+    color: #3b4d3e;
+}
+
+#lista-archivos {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    overflow-y: auto; /* Scroll si hay muchos archivos */
+}
+
+.archivo-item {
+    padding: 10px 12px;
+    margin-bottom: 8px;
+    background-color: #d4d4d4;
+    color: #3f3f46;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    transition: all 0.2s;
+}
+
+.archivo-item:hover {
+    background-color: #e4e4e7;
+}
+
+.archivo-item.activo {
+    background-color: #3b4d3e;
+    color: azure;
+}
+
+/* --- PANEL DERECHO (Editor) --- */
+
+
+.editor-herramientas {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+#nota-titulo {
+    flex-grow: 1;
+    font-size: 20px;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    background-color: transparent;
+    color: #3f3f46;
+    border-bottom: 2px solid #a3a3a3;
+    outline: none;
+    font-weight: 500;
+    font-family: 'Inter', sans-serif;
+}
+
+#nota-titulo:focus {
+    border-bottom-color: #3b4d3e;
+}
+
+.btn-guardar {
+    background-color: #3b4d3e;
+    color: azure;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: background-color 0.2s;
+}
+
+.btn-guardar:hover {
+    background-color: #2e3c30;
+}
+
+#nota-contenido {
+    width: 100%;
+    flex-grow: 1; /* Esto hace que el textarea se estire hacia abajo llenando el espacio */
+    padding: 20px;
+    border-radius: 12px;
+    border: none;
+    background-color: #e4e4e7; /* Fondo claro para escribir cómodamente */
+    color: #27272a;
+    font-family: 'Courier New', Courier, monospace; /* Fuente monoespaciada ideal para Markdown */
+    font-size: 15px;
+    line-height: 1.5;
+    resize: none; /* Evita que el usuario rompa el tamaño de la caja */
+    outline: none;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+}
+
+
+/* --- HERRAMIENTAS Y ÁREA DE TRABAJO --- */
+.herramientas-derecha {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-herramienta {
+    background-color: transparent;
+    color: #3f3f46;
+    border: 1px solid #a3a3a3;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s;
+}
+
+.btn-herramienta:hover {
+    background-color: #d4d4d4;
+    color: #18181b;
+}
+
+.area-trabajo-nota {
+    flex-grow: 1;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* Evita que el contenido desborde el panel */
+}
+
+#nota-contenido, #nota-preview {
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    border-radius: 12px;
+    background-color: #e4e4e7;
+    color: #18181b;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+/* --- ESTILOS DE RENDERIZADO MARKDOWN (Estilo Obsidian) --- */
+.markdown-view {
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+}
+
+.markdown-view h1, .markdown-view h2, .markdown-view h3 {
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+    font-weight: 600;
+    color: #111827;
+}
+
+.markdown-view h1 { font-size: 2em; border-bottom: 1px solid #a3a3a3; padding-bottom: 0.3em; }
+.markdown-view h2 { font-size: 1.5em; }
+.markdown-view p { margin-bottom: 1em; }
+.markdown-view ul, .markdown-view ol { margin-bottom: 1em; padding-left: 2em; }
+.markdown-view li { margin-bottom: 0.3em; }
+.markdown-view strong { font-weight: 600; color: #000; }
+
+/* --- BARRA DE ESTADO INFERIOR --- */
+.status-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    background-color: #a3a3a3;
+    border-radius: 8px;
+    font-size: 12px;
+    color: #1f2937;
+    flex-shrink: 0;
+}
+
+.ruta-archivo {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'Courier New', Courier, monospace;
+}
+/* --- NUEVOS ESTILOS PARA ÁRBOL DE ARCHIVOS Y VAULT --- */
+.acciones-archivos {
+    display: flex;
+    gap: 8px;
+}
+
+.arbol-archivos {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    overflow-y: auto;
+    flex-grow: 1; /* Permite que la lista ocupe el espacio disponible y empuje el footer hacia abajo */
+}
+
+/* Sub-lista para el contenido de las carpetas */
+.contenido-carpeta {
+    list-style: none;
+    padding-left: 20px;
+    margin: 0;
+    display: none; /* Oculto por defecto */
+}
+
+.contenido-carpeta.abierta {
+    display: block; /* Se muestra cuando la carpeta está abierta */
+}
+
+/* Diferenciar visualmente las carpetas de las notas */
+.carpeta-item {
+    font-weight: 600;
+    color: #1f2937;
+    background-color: transparent;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+/* Botón inferior del Vault */
+.footer-archivos {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 2px solid #52525b;
+}
+
+.btn-vault {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px;
+    background-color: #18181b;
+    color: #e4e4e7;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.btn-vault:hover {
+    background-color: #3f3f46;
+}
+
