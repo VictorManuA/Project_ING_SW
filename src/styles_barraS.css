@@ -1,7 +1,15 @@
 .barra-superior {
+
+    color: rgb(234, 223, 203);
+    box-shadow: inset 0px 0px 7px 5px rgba(101, 67, 33, 0.50);
+    margin-left: 7px;  
+    margin-top: 5px;    
+    margin-right: 15px;  
+    margin-right: 7px; 
+    border-radius: 10px ; 
     height: 35px;
     opacity: 1;
-    background-color: #709570; 
+    background-color: rgb(151, 87, 78);
     display: flex;
     justify-content: flex-start; 
     align-items: center;

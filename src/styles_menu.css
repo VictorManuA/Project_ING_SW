@@ -9,9 +9,9 @@
 }
 .tab-btn { /*Cada pestaña*/ 
     position: relative;
-    background-color: #adadb0;
+    background-color: rgb(151, 87, 78);
     border: none;
-    color: #52525b;
+    color:rgb(151, 87, 78);
     width: 55px; 
     height: 100px;
     border-radius: 7px 0 0 7px; 
@@ -36,12 +36,12 @@
 .tab-btn:hover {
     position: relative;
     transform: translateX(-100%); 
-    background-color: #18181b;
-    color: #e4e4e7;
+    background-color: rgb(140, 96, 71);
+    color:rgb(234, 223, 203);
 }
 .tab-btn.active {
-    background-color: #dcfce3; 
-    color: #052e16;
+    background-color: rgb(203, 171, 84); 
+    color:rgb(234, 223, 203);
     transform: translateX(-40px);
 }
 .tab-btn.active:hover {
