@@ -12,5 +12,6 @@
     "core:window:allow-toggle-maximize",
     "dialog:default",
     "fs:default"
+    
   ]
 }
