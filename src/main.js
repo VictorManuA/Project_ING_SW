@@ -1,5 +1,6 @@
 import { iniciarConfig } from './js/config.js';
 import { alMostrarNotas, iniciarNotas } from './js/notas.js';
+import { alMostrarCalendario, iniciarCalendario } from './js/calendario.js';
 
 window.addEventListener('DOMContentLoaded', async () => {
   const tabs = document.querySelectorAll('.tab-btn');
@@ -7,6 +8,7 @@ window.addEventListener('DOMContentLoaded', async () => {
 
   const alEntrarEnVista = {
     Inicio: () => {},
+    Calendario: () => alMostrarCalendario(),
     Notas: () => alMostrarNotas(),
     Temporizador: () => {},
     Perfil: () => {},
@@ -24,5 +26,6 @@ window.addEventListener('DOMContentLoaded', async () => {
     });
   });
   await iniciarConfig();
+  await iniciarCalendario();
   await iniciarNotas();
 });

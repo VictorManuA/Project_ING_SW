@@ -15,6 +15,8 @@ async function llamar(comando, args = {}) {
 export const api = {
   cargarConfig: () => llamar('cargar_config'),
   guardarConfig: (config) => llamar('guardar_config', { config }),
+  cargarCalendario: () => llamar('cargar_calendario'),
+  guardarCalendario: (calendario) => llamar('guardar_calendario', { calendario }),
   escanearVault: (vault) => llamar('escanear_vault', { vault }),
   
   async elegirCarpeta(carpetaInicial) {

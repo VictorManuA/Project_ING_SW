@@ -21,6 +21,8 @@ use tauri::Manager;
 const MAX_ENTRADAS: usize = 20_000;
 const MAX_PROFUNDIDAD: usize = 32;
 const MAX_BYTES_NOTA: u64 = 10 * 1024 * 1024;
+const MAX_BYTES_CALENDARIO: usize = 10 * 1024 * 1024;
+const MAX_ACTIVIDADES: usize = 20_000;
 
 #[derive(Serialize)]
 struct Entrada {
@@ -157,6 +159,73 @@ async fn guardar_config(app: tauri::AppHandle, config: serde_json::Value) -> Res
     let texto = serde_json::to_string_pretty(&config).map_err(|e| e.to_string())?;
     escribir_atomico(&ruta, texto.as_bytes())
         .map_err(|e| format!("No se pudo guardar la configuración: {e}"))
+}
+
+// -----------------------------------------------------------------------------
+// Calendario (calendar.json en la carpeta de datos de la aplicación)
+// -----------------------------------------------------------------------------
+
+fn ruta_calendario(app: &tauri::AppHandle) -> Result<PathBuf, String> {
+    let dir = app.path().app_data_dir().map_err(|e| e.to_string())?;
+    fs::create_dir_all(&dir)
+        .map_err(|e| format!("No se pudo crear la carpeta de datos: {e}"))?;
+    Ok(dir.join("calendar.json"))
+}
+
+fn calendario_vacio() -> serde_json::Value {
+    serde_json::json!({ "version": 1, "actividades": [] })
+}
+
+fn validar_calendario(calendario: &serde_json::Value) -> Result<(), String> {
+    let objeto = calendario
+        .as_object()
+        .ok_or_else(|| "El calendario debe ser un objeto JSON".to_string())?;
+    let actividades = objeto
+        .get("actividades")
+        .and_then(|v| v.as_array())
+        .ok_or_else(|| "El calendario debe contener una lista de actividades".to_string())?;
+    if actividades.len() > MAX_ACTIVIDADES {
+        return Err(format!(
+            "El calendario supera el límite de {MAX_ACTIVIDADES} actividades"
+        ));
+    }
+    if actividades.iter().any(|a| !a.is_object()) {
+        return Err("Todas las actividades del calendario deben ser objetos".into());
+    }
+    Ok(())
+}
+
+#[tauri::command]
+async fn cargar_calendario(app: tauri::AppHandle) -> Result<serde_json::Value, String> {
+    let ruta = ruta_calendario(&app)?;
+    let texto = match fs::read_to_string(&ruta) {
+        Ok(t) => t,
+        Err(e) if e.kind() == io::ErrorKind::NotFound => return Ok(calendario_vacio()),
+        Err(e) => return Err(format!("No se pudo leer el calendario: {e}")),
+    };
+    match serde_json::from_str::<serde_json::Value>(&texto) {
+        Ok(v) if validar_calendario(&v).is_ok() => Ok(v),
+        _ => {
+            let corrupta = ruta.with_file_name("calendar.corrupto.json");
+            let _ = fs::rename(&ruta, corrupta);
+            Ok(calendario_vacio())
+        }
+    }
+}
+
+#[tauri::command]
+async fn guardar_calendario(
+    app: tauri::AppHandle,
+    calendario: serde_json::Value,
+) -> Result<(), String> {
+    validar_calendario(&calendario)?;
+    let texto = serde_json::to_string_pretty(&calendario).map_err(|e| e.to_string())?;
+    if texto.len() > MAX_BYTES_CALENDARIO {
+        return Err("El calendario supera el límite de 10 MB".into());
+    }
+    let ruta = ruta_calendario(&app)?;
+    escribir_atomico(&ruta, texto.as_bytes())
+        .map_err(|e| format!("No se pudo guardar el calendario: {e}"))
 }
 
 // -----------------------------------------------------------------------------
@@ -347,6 +416,8 @@ pub fn run() {
         .invoke_handler(tauri::generate_handler![
             cargar_config,
             guardar_config,
+            cargar_calendario,
+            guardar_calendario,
             escanear_vault,
             crear_entrada,
             mover_entrada,

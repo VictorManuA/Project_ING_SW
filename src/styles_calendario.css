@@ -1,0 +1,187 @@
+.calendario-app {
+  --cal-papel: #f4ead5;
+  --cal-papel-claro: #fff9ec;
+  --cal-tinta: #52362a;
+  --cal-suave: #8d705f;
+  --cal-linea: #a8664c;
+  --cal-linea-suave: rgba(147, 87, 64, .27);
+  --cal-verde: #4e6658;
+  --cal-dorado: #bc9135;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  margin: 0;
+  padding: 24px 28px 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  color: var(--cal-tinta);
+  border: 2px solid var(--cal-linea);
+  border-radius: 5px 12px 7px 5px;
+  background: linear-gradient(90deg, transparent 48px, rgba(168,102,76,.16) 49px, transparent 50px), repeating-linear-gradient(0deg, transparent 0 35px, rgba(168,102,76,.06) 36px), var(--cal-papel);
+  box-shadow: 7px 8px 0 rgba(80,49,36,.12), 0 18px 35px rgba(55,35,24,.14);
+  font-family: var(--n-fuente-ui, 'Inter', system-ui, sans-serif);
+}
+.calendario-app::before, .calendario-app::after { content: ''; position: absolute; z-index: -1; border: 1px solid rgba(147,87,64,.42); background: #eadcc3; }
+.calendario-app::before { inset: 7px -8px -8px 8px; transform: rotate(.25deg); }
+.calendario-app::after { inset: 13px -13px -13px 14px; opacity: .55; transform: rotate(-.2deg); }
+.calendario-cabecera, .calendario-barra { display: flex; align-items: center; justify-content: space-between; gap: 18px; }
+.calendario-cabecera { padding: 0 4px 15px 25px; border-bottom: 2px solid var(--cal-linea); }
+.calendario-cabecera h2 { margin: 1px 0 0; font: 600 30px/1.05 'Outfit', sans-serif; letter-spacing: -.02em; }
+.calendario-eyebrow { margin: 0; color: var(--cal-suave); font-size: 10px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
+.calendario-acciones-principales, .calendario-navegacion, .calendario-selector-vista { display: flex; align-items: center; gap: 5px; }
+.calendario-selector-vista { padding: 3px; border: 1px solid var(--cal-linea); border-radius: 4px; background: rgba(255,249,236,.45); }
+.calendario-selector-vista button, .calendario-navegacion button, .cal-btn-icono { min-height: 32px; padding: 0 10px; border: 0; border-radius: 3px; background: transparent; color: var(--cal-tinta); font: 600 12px/1 inherit; cursor: pointer; }
+.calendario-selector-vista button { display: inline-flex; align-items: center; gap: 5px; }
+.calendario-selector-vista button:hover, .calendario-navegacion button:hover, .cal-btn-icono:hover { background: rgba(147,87,64,.1); }
+.calendario-selector-vista button.activo { background: var(--cal-tinta); color: var(--cal-papel-claro); }
+.cal-btn-primario, .cal-btn-secundario, .cal-btn-peligro { min-height: 38px; padding: 0 15px; border: 1px solid var(--cal-linea); border-radius: 4px; font: 600 13px/1 var(--n-fuente-ui, sans-serif); cursor: pointer; }
+.cal-btn-primario { background: var(--cal-tinta); color: var(--cal-papel-claro); }
+.cal-btn-primario:hover { background: #6a4434; }
+.cal-btn-secundario { background: #eadcc3; color: var(--cal-tinta); }
+.cal-btn-peligro { border-color: #8b372e; background: #8b372e; color: white; }
+.cal-btn-nueva { width: 39px; padding: 0; font-size: 18px; }
+.cal-btn-primario i { margin-right: 4px; }
+.cal-btn-nueva i { margin: 0; }
+.calendario-barra { padding: 10px 4px 9px 25px; }
+.calendario-navegacion { min-width: 0; }
+.calendario-navegacion strong { min-width: 210px; font: 600 14px/1.2 'Outfit', sans-serif; text-align: center; }
+.calendario-navegacion button { border: 1px solid transparent; }
+.calendario-navegacion #cal-hoy { border-color: var(--cal-linea-suave); }
+.calendario-leyenda { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 11px; font-size: 10px; color: var(--cal-suave); }
+.calendario-leyenda span::before { content: ''; display: inline-block; width: 7px; height: 7px; margin-right: 4px; border-radius: 50%; }
+.calendario-leyenda [data-tipo="clase"]::before { background: #567a8b; }
+.calendario-leyenda [data-tipo="tarea"]::before { background: #bd8c32; }
+.calendario-leyenda [data-tipo="examen"]::before { background: #a14e45; }
+.calendario-leyenda [data-tipo="descanso"]::before { background: #64806b; }
+.calendario-contenido { flex: 1; min-height: 0; overflow: auto; margin-left: 25px; border: 1.5px solid var(--cal-linea); border-radius: 3px; background: rgba(255,249,236,.67); scrollbar-color: rgba(147,87,64,.4) transparent; }
+.calendario-estado { position: absolute; z-index: 3; top: 88px; right: 28px; max-width: 380px; padding: 8px 11px; border: 1px solid var(--cal-linea-suave); border-radius: 3px; background: #eadcb9; color: var(--cal-tinta); font-size: 11px; box-shadow: 2px 2px 0 rgba(80,49,36,.1); }
+.calendario-estado.error { background: #f2d0cc; color: #7b251f; }
+
+.cal-agenda { min-height: 100%; display: flex; flex-direction: column; padding: 9px 14px; box-sizing: border-box; }
+.cal-agenda-fila { position: relative; width: 100%; min-height: 72px; display: grid; grid-template-columns: 82px 1fr 22px; align-items: center; gap: 14px; padding: 7px 10px 7px 0; border: 0; border-bottom: 1px solid var(--cal-linea-suave); background: transparent; color: var(--cal-tinta); text-align: left; cursor: pointer; }
+.cal-agenda-fila::before { content: ''; position: absolute; left: 81px; top: 18px; bottom: 18px; width: 4px; border-radius: 4px; background: #567a8b; }
+.cal-agenda-fila:hover { background: rgba(168,102,76,.07); }
+.cal-agenda-fila.cal-tipo-tarea::before { background: #bd8c32; }
+.cal-agenda-fila.cal-tipo-examen::before { background: #a14e45; }
+.cal-agenda-fila.cal-tipo-descanso::before { background: #64806b; }
+.cal-agenda-fila.prioridad-alta .cal-agenda-titulo::after { content: ' !'; color: #9b3f35; }
+.cal-agenda-fila.completada { opacity: .55; }
+.cal-agenda-fila.completada .cal-agenda-titulo { text-decoration: line-through; }
+.cal-agenda-hora { align-self: start; padding-top: 18px; color: var(--cal-suave); font: 600 14px/1 'Outfit', sans-serif; text-align: center; }
+.cal-agenda-detalle { min-width: 0; display: flex; flex-direction: column; gap: 5px; padding-left: 12px; }
+.cal-agenda-titulo { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font: 600 17px/1.2 'Outfit', sans-serif; }
+.cal-agenda-meta { overflow: hidden; color: var(--cal-suave); font-size: 11px; text-overflow: ellipsis; white-space: nowrap; }
+.cal-agenda-flecha { color: var(--cal-linea); font-size: 17px; }
+.cal-agenda-agregar, .cal-agenda-vacia { border: 1px dashed var(--cal-linea-suave); border-radius: 3px; background: transparent; color: var(--cal-suave); cursor: pointer; }
+.cal-agenda-agregar { min-height: 46px; margin-top: 9px; display: flex; align-items: center; justify-content: center; gap: 6px; font: 600 12px/1 inherit; }
+.cal-agenda-agregar:hover, .cal-agenda-vacia:hover { border-color: var(--cal-linea); background: rgba(168,102,76,.06); color: var(--cal-tinta); }
+.cal-agenda-vacia { flex: 1; min-height: 220px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 7px; }
+.cal-agenda-vacia i { font-size: 28px; }
+.cal-agenda-vacia strong { color: var(--cal-tinta); font: 600 17px/1.2 'Outfit', sans-serif; }
+.cal-agenda-vacia span { font-size: 11px; }
+.cal-proxima { min-height: 52px; display: grid; grid-template-columns: 74px minmax(0,1fr) auto 24px; align-items: center; gap: 12px; margin: 11px 4px 0 25px; padding: 0 13px; border: 1.5px solid var(--cal-linea); border-radius: 3px; background: rgba(232,215,184,.78); color: var(--cal-tinta); text-align: left; cursor: pointer; }
+.cal-proxima:hover { background: #e6d2af; }
+.cal-proxima-etiqueta { color: var(--cal-suave); font-size: 10px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; }
+.cal-proxima strong { overflow: hidden; font: 600 14px/1.2 'Outfit', sans-serif; text-overflow: ellipsis; white-space: nowrap; }
+.cal-proxima > span:not(.cal-proxima-etiqueta) { color: var(--cal-suave); font-size: 11px; }
+.cal-proxima i { font-size: 17px; }
+.cal-proxima.vacia { opacity: .76; }
+
+.cal-mes { min-width: 720px; height: 100%; min-height: 480px; display: grid; grid-template-columns: repeat(7,minmax(98px,1fr)); grid-template-rows: 30px repeat(6,minmax(72px,1fr)); }
+.cal-dia-semana { display: grid; place-items: center; border-bottom: 1px solid var(--cal-linea-suave); color: var(--cal-suave); font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.cal-dia { min-width: 0; padding: 4px; border-right: 1px solid var(--cal-linea-suave); border-bottom: 1px solid var(--cal-linea-suave); overflow: hidden; }
+.cal-dia:nth-child(7n) { border-right: 0; }
+.cal-dia.fuera-mes { background: rgba(93,75,54,.04); color: #a28e7c; }
+.cal-dia.hoy { box-shadow: inset 0 0 0 2px rgba(188,145,53,.65); }
+.cal-dia-numero { width: 24px; height: 24px; margin-bottom: 2px; border: 0; border-radius: 50%; background: transparent; color: inherit; font: 600 11px/1 inherit; cursor: pointer; }
+.cal-dia.hoy .cal-dia-numero { background: var(--cal-dorado); color: white; }
+.cal-evento { position: relative; width: 100%; min-width: 0; display: flex; align-items: center; gap: 4px; margin: 2px 0; padding: 4px 5px 4px 8px; border: 0; border-radius: 3px; background: #dce4e7; color: #29404a; text-align: left; font: 500 10px/1.2 inherit; cursor: pointer; overflow: hidden; }
+.cal-evento::before { content: ''; position: absolute; inset: 0 auto 0 0; width: 3px; background: #567a8b; }
+.cal-evento:hover { filter: brightness(.96); }
+.cal-evento.cal-tipo-tarea { background: #eee1c0; color: #604716; }
+.cal-evento.cal-tipo-tarea::before { background: #bd8c32; }
+.cal-evento.cal-tipo-examen { background: #edd4d0; color: #71342d; }
+.cal-evento.cal-tipo-examen::before { background: #a14e45; }
+.cal-evento.cal-tipo-descanso { background: #dae5dc; color: #334e39; }
+.cal-evento.cal-tipo-descanso::before { background: #64806b; }
+.cal-evento.prioridad-alta { box-shadow: inset 0 0 0 1px rgba(128,38,30,.3); }
+.cal-evento.completada { opacity: .55; }
+.cal-evento.completada .cal-evento-titulo { text-decoration: line-through; }
+.cal-evento-hora { flex: none; font-size: 9px; opacity: .75; }
+.cal-evento-titulo { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cal-mas-eventos { display: block; padding: 2px 4px; color: var(--cal-suave); font-size: 9px; }
+.cal-semana { min-width: 800px; height: 100%; min-height: 480px; display: grid; grid-template-columns: repeat(7,minmax(110px,1fr)); }
+.cal-semana-dia { min-width: 0; border-right: 1px solid var(--cal-linea-suave); }
+.cal-semana-dia:last-child { border-right: 0; }
+.cal-semana-dia.hoy { background: rgba(188,145,53,.07); }
+.cal-semana-cabecera { width: 100%; min-height: 54px; display: grid; place-items: center; gap: 1px; border: 0; border-bottom: 1px solid var(--cal-linea-suave); background: transparent; color: var(--cal-suave); cursor: pointer; }
+.cal-semana-cabecera strong { font-size: 19px; color: var(--cal-tinta); }
+.cal-semana-dia.hoy .cal-semana-cabecera strong { width: 28px; height: 28px; display: grid; place-items: center; border-radius: 50%; background: var(--cal-dorado); color: white; }
+.cal-semana-eventos { display: flex; flex-direction: column; gap: 6px; padding: 7px; }
+.cal-semana .cal-evento { min-height: 78px; display: flex; flex-direction: column; align-items: flex-start; gap: 4px; padding: 8px 7px 8px 11px; }
+.cal-evento-cabecera { width: 100%; display: flex; justify-content: space-between; gap: 4px; font-size: 8px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+.cal-evento-prioridad { opacity: .72; }
+.cal-evento-materia, .cal-evento-horario { font-size: 9px; opacity: .78; }
+.cal-evento-repite { position: absolute; right: 6px; bottom: 6px; }
+.cal-dia-vacio { margin: 11px 2px; color: #9a8b77; font-size: 10px; text-align: center; }
+
+.cal-modal-fondo {
+  --cal-papel: #f4ead5;
+  --cal-papel-claro: #fff9ec;
+  --cal-tinta: #52362a;
+  --cal-suave: #8d705f;
+  --cal-linea: #a8664c;
+  --cal-linea-suave: rgba(147,87,64,.27);
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(48,32,24,.5);
+  backdrop-filter: blur(2px);
+}
+.cal-modal { width: min(570px,calc(100vw - 36px)); max-height: calc(100vh - 48px); overflow: auto; box-sizing: border-box; padding: 23px; border: 2px solid var(--cal-linea); border-radius: 4px; background: var(--cal-papel); color: var(--cal-tinta); box-shadow: 7px 8px 0 rgba(55,35,24,.2),0 22px 60px rgba(30,20,12,.3); font-family: var(--n-fuente-ui,sans-serif); }
+.cal-modal-cabecera { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 18px; padding-bottom: 11px; border-bottom: 1px solid var(--cal-linea-suave); }
+.cal-modal-cabecera h3 { margin: 3px 0 0; font: 600 22px/1.1 'Outfit',sans-serif; }
+.cal-btn-icono { width: 34px; padding: 0; font-size: 18px; }
+.cal-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.cal-campo { display: flex; flex-direction: column; gap: 5px; color: var(--cal-suave); font-size: 11px; font-weight: 600; }
+.cal-campo-ancho { grid-column: 1 / -1; }
+.cal-campo input, .cal-campo select, .cal-campo textarea { width: 100%; box-sizing: border-box; padding: 9px 10px; border: 1px solid var(--cal-linea-suave); border-radius: 3px; outline: none; background: var(--cal-papel-claro); color: var(--cal-tinta); font: 400 13px/1.3 inherit; }
+.cal-campo input:focus, .cal-campo select:focus, .cal-campo textarea:focus { border-color: var(--cal-linea); box-shadow: 0 0 0 2px rgba(168,102,76,.12); }
+.cal-campo textarea { resize: vertical; }
+.cal-check { display: flex; align-items: center; align-self: end; gap: 7px; min-height: 38px; color: var(--cal-tinta); font-size: 12px; cursor: pointer; }
+.cal-check input { accent-color: var(--cal-tinta); }
+.cal-form-error { min-height: 17px; margin: 9px 0 0; color: #8b2922; font-size: 11px; }
+.cal-modal-acciones { display: flex; align-items: center; gap: 8px; margin-top: 4px; }
+.cal-modal-espacio { flex: 1; }
+body.cal-modal-abierto { overflow: hidden; }
+
+@media (max-width: 900px) {
+  .calendario-app { width: 100%; padding-inline: 16px; }
+  .calendario-cabecera { padding-left: 12px; }
+  .calendario-contenido, .cal-proxima { margin-left: 12px; }
+  .calendario-barra { padding-left: 12px; }
+  .calendario-leyenda { display: none; }
+}
+@media (max-width: 680px) {
+  .calendario-app { height: 100%; min-height: 0; padding: 15px 10px; }
+  .calendario-cabecera h2 { font-size: 24px; }
+  .calendario-selector-vista span { display: none; }
+  .calendario-selector-vista button { width: 32px; justify-content: center; padding: 0; }
+  .calendario-navegacion strong { min-width: 0; flex: 1; }
+  .calendario-barra { padding-left: 0; }
+  .calendario-contenido, .cal-proxima { margin-left: 0; }
+  .calendario-navegacion { width: 100%; }
+  .cal-agenda-fila { grid-template-columns: 60px 1fr 18px; gap: 8px; }
+  .cal-agenda-fila::before { left: 59px; }
+  .cal-agenda-hora { font-size: 12px; }
+  .cal-agenda-titulo { font-size: 15px; }
+  .cal-proxima { grid-template-columns: 62px minmax(0,1fr) 18px; }
+  .cal-proxima > span:not(.cal-proxima-etiqueta) { display: none; }
+  .cal-form-grid { grid-template-columns: 1fr; }
+  .cal-campo-ancho { grid-column: auto; }
+}
