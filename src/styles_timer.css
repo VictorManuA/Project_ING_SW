@@ -1,0 +1,81 @@
+.pomodoro-container {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    margin: 2rem auto;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    
+    /* COLOCA AQUÍ LA URL DE TU IMAGEN DE FONDO */
+    background-image: url('./assets/pomodoroBg.jpg');
+    
+    background-color: #f4f4f9; /* Color de respaldo */
+    background-size: cover;
+    background-position: center;
+}
+
+.pomodoro-overlay {
+    background-color: rgba(0, 0, 0, 0.5); /* Oscurece la imagen para que el texto sea legible */
+    padding: 3rem 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.pomodoro-content {
+    color: #ffffff;
+}
+
+.pomodoro-title {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.time-display {
+    font-size: 5rem;
+    font-weight: bold;
+    font-family: monospace;
+    margin-bottom: 2rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.pomodoro-controls {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.pomodoro-btn {
+    padding: 0.75rem 2rem;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: transform 0.2s, opacity 0.2s;
+}
+
+.pomodoro-btn:active {
+    transform: scale(0.95);
+}
+
+.pomodoro-btn.primary {
+    background-color: #ff6b6b;
+    color: white;
+}
+
+.pomodoro-btn.primary:hover {
+    background-color: #fa5252;
+}
+
+.pomodoro-btn.secondary {
+    background-color: #495057;
+    color: white;
+}
+
+.pomodoro-btn.secondary:hover {
+    background-color: #343a40;
+}

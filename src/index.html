@@ -3,245 +3,440 @@
   <head>
     <meta charset="UTF-8" />
     <!-- importante no quitar-->
-    <link rel="stylesheet" href="styles.css" >
-    <link rel="stylesheet" href="styles_menu.css">
-    <link rel="stylesheet" href="styles_barraS.css">
-    <link rel="stylesheet" href="stles_notas.css">
-    <link rel="stylesheet" href="styles_calendario.css">
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="styles_menu.css" />
+    <link rel="stylesheet" href="styles_barraS.css" />
+    <link rel="stylesheet" href="stles_notas.css" />
+    <link rel="stylesheet" href="styles_calendario.css" />
+    <link rel="stylesheet" href="styles_timer.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Study.Time</title>
     <script src="./vendor/marked.min.js"></script>
     <script src="./vendor/purify.min.js"></script>
     <!-- NO se si los vamos a utilizar pero los voy a dejer-->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <script type="module" src="./main.js" defer></script>
   </head>
   <body>
-  <header class="barra-superior" data-tauri-drag-region>
-    <div class="espacio_botones" data-tauri-drag-region></div>
-    <div class="botones_barraS">
-    </div>
-    <div class="espacio-libre" data-tauri-drag-region></div>
+    <header class="barra-superior" data-tauri-drag-region>
+      <div class="espacio_botones" data-tauri-drag-region></div>
+      <div class="botones_barraS"></div>
+      <div class="espacio-libre" data-tauri-drag-region></div>
+    </header>
+    <div class="sidebar-trigger-area"></div>
+    <nav class="pestañas-laterales">
+      <button class="tab-btn active" title="Inicio">
+        <i class="ph ph-house"></i>
+      </button>
+      <button class="tab-btn" title="Calendario">
+        <i class="ph ph-calendar-dots"></i>
+      </button>
+      <button class="tab-btn" title="Notas"><i class="ph ph-note"></i></button>
+      <button class="tab-btn" title="Temporizador">
+        <i class="ph ph-timer"></i>
+      </button>
+      <button class="tab-btn" title="Perfil"><i class="ph ph-user"></i></button>
+    </nav>
+    <main class="contenido-principal">
+      <section id="vista-Inicio" class="vista-app">
+        <h2>Inicio</h2>
+        <p>Lugar de trabajo de MENU PRINCIPAL</p>
+      </section>
 
-  </header>
-  <div class="sidebar-trigger-area"></div>
-  <nav class="pestañas-laterales">
-    <button class="tab-btn active" title="Inicio"><i class="ph ph-house"></i></button>
-    <button class="tab-btn" title="Calendario"><i class="ph ph-calendar-dots"></i></button>
-    <button class="tab-btn" title="Notas"><i class="ph ph-note"></i></button>
-    <button class="tab-btn" title="Temporizador"><i class="ph ph-timer"></i></button>
-    <button class="tab-btn" title="Perfil"><i class="ph ph-user"></i></button>
-</nav>
-  <main class="contenido-principal">
-    <section id="vista-Inicio" class="vista-app">
-      <h2>Inicio</h2>
-      <p>Lugar de trabajo de MENU PRINCIPAL</p>
-    </section>
-
-    <section id="vista-Calendario" class="vista-app oculta">
-      <div class="calendario-app">
-        <header class="calendario-cabecera">
-          <div>
-            <p class="calendario-eyebrow">StudyTime</p>
-            <h2>Mi horario</h2>
-          </div>
-          <div class="calendario-acciones-principales">
-            <div class="calendario-selector-vista" role="group" aria-label="Vista del calendario">
-              <button id="cal-vista-dia" class="activo" type="button" title="Agenda del día"><i class="ph ph-list-bullets"></i><span>Día</span></button>
-              <button id="cal-vista-semana" type="button" title="Vista semanal"><i class="ph ph-columns"></i><span>Semana</span></button>
-              <button id="cal-vista-mes" type="button" title="Vista mensual"><i class="ph ph-calendar-dots"></i><span>Mes</span></button>
-            </div>
-            <button id="cal-nueva-actividad" class="cal-btn-primario cal-btn-nueva" type="button" aria-label="Nueva actividad" title="Nueva actividad">
-              <i class="ph ph-plus" aria-hidden="true"></i>
-            </button>
-          </div>
-        </header>
-        <div class="calendario-barra">
-          <div class="calendario-navegacion">
-            <button id="cal-anterior" type="button" aria-label="Periodo anterior"><i class="ph ph-caret-left"></i></button>
-            <strong id="calendario-titulo">Hoy</strong>
-            <button id="cal-hoy" type="button">Hoy</button>
-            <button id="cal-siguiente" type="button" aria-label="Periodo siguiente"><i class="ph ph-caret-right"></i></button>
-          </div>
-          <div class="calendario-leyenda" aria-label="Tipos de actividad">
-            <span data-tipo="clase">Clase</span>
-            <span data-tipo="tarea">Tarea</span>
-            <span data-tipo="examen">Examen</span>
-            <span data-tipo="descanso">Descanso</span>
-          </div>
-        </div>
-        <div id="calendario-estado" class="calendario-estado oculta" role="status"></div>
-        <div id="calendario-contenido" class="calendario-contenido" aria-live="polite"></div>
-        <button id="cal-proxima" class="cal-proxima" type="button">
-          <span class="cal-proxima-etiqueta">Siguiente</span>
-          <strong id="cal-proxima-titulo">Sin actividades próximas</strong>
-          <span id="cal-proxima-hora"></span>
-          <i class="ph ph-arrow-right" aria-hidden="true"></i>
-        </button>
-      </div>
-
-      <div id="cal-modal" class="cal-modal-fondo oculta" role="presentation">
-        <form id="cal-formulario" class="cal-modal" role="dialog" aria-modal="true" aria-labelledby="cal-form-titulo">
-          <div class="cal-modal-cabecera">
+      <section id="vista-Calendario" class="vista-app oculta">
+        <div class="calendario-app">
+          <header class="calendario-cabecera">
             <div>
-              <p class="calendario-eyebrow">Actividad</p>
-              <h3 id="cal-form-titulo">Nueva actividad</h3>
+              <p class="calendario-eyebrow">StudyTime</p>
+              <h2>Mi horario</h2>
             </div>
-            <button id="cal-cerrar-modal" class="cal-btn-icono" type="button" aria-label="Cerrar"><i class="ph ph-x"></i></button>
+            <div class="calendario-acciones-principales">
+              <div
+                class="calendario-selector-vista"
+                role="group"
+                aria-label="Vista del calendario"
+              >
+                <button
+                  id="cal-vista-dia"
+                  class="activo"
+                  type="button"
+                  title="Agenda del día"
+                >
+                  <i class="ph ph-list-bullets"></i><span>Día</span>
+                </button>
+                <button
+                  id="cal-vista-semana"
+                  type="button"
+                  title="Vista semanal"
+                >
+                  <i class="ph ph-columns"></i><span>Semana</span>
+                </button>
+                <button id="cal-vista-mes" type="button" title="Vista mensual">
+                  <i class="ph ph-calendar-dots"></i><span>Mes</span>
+                </button>
+              </div>
+              <button
+                id="cal-nueva-actividad"
+                class="cal-btn-primario cal-btn-nueva"
+                type="button"
+                aria-label="Nueva actividad"
+                title="Nueva actividad"
+              >
+                <i class="ph ph-plus" aria-hidden="true"></i>
+              </button>
+            </div>
+          </header>
+          <div class="calendario-barra">
+            <div class="calendario-navegacion">
+              <button
+                id="cal-anterior"
+                type="button"
+                aria-label="Periodo anterior"
+              >
+                <i class="ph ph-caret-left"></i>
+              </button>
+              <strong id="calendario-titulo">Hoy</strong>
+              <button id="cal-hoy" type="button">Hoy</button>
+              <button
+                id="cal-siguiente"
+                type="button"
+                aria-label="Periodo siguiente"
+              >
+                <i class="ph ph-caret-right"></i>
+              </button>
+            </div>
+            <div class="calendario-leyenda" aria-label="Tipos de actividad">
+              <span data-tipo="clase">Clase</span>
+              <span data-tipo="tarea">Tarea</span>
+              <span data-tipo="examen">Examen</span>
+              <span data-tipo="descanso">Descanso</span>
+            </div>
           </div>
-          <input id="cal-id" type="hidden">
-          <div class="cal-form-grid">
-            <label class="cal-campo cal-campo-ancho">
-              <span>Título</span>
-              <input id="cal-titulo" name="titulo" type="text" maxlength="120" required autocomplete="off">
-            </label>
-            <label class="cal-campo">
-              <span>Tipo</span>
-              <select id="cal-tipo" name="tipo">
-                <option value="clase">Clase</option>
-                <option value="tarea">Tarea</option>
-                <option value="examen">Examen</option>
-                <option value="descanso">Descanso</option>
-              </select>
-            </label>
-            <label class="cal-campo">
-              <span>Materia</span>
-              <input id="cal-materia" name="materia" type="text" maxlength="80" autocomplete="off">
-            </label>
-            <label class="cal-campo">
-              <span>Prioridad</span>
-              <select id="cal-prioridad" name="prioridad">
-                <option value="baja">Baja</option>
-                <option value="media" selected>Media</option>
-                <option value="alta">Alta</option>
-              </select>
-            </label>
-            <label class="cal-check">
-              <input id="cal-todo-dia" type="checkbox">
-              <span>Todo el día</span>
-            </label>
-            <label class="cal-campo">
-              <span>Inicio</span>
-              <input id="cal-inicio" name="inicio" type="datetime-local" required>
-            </label>
-            <label class="cal-campo">
-              <span>Fin o fecha límite</span>
-              <input id="cal-fin" name="fin" type="datetime-local" required>
-            </label>
-            <label id="cal-repetir-campo" class="cal-check">
-              <input id="cal-repetir" type="checkbox">
-              <span>Repetir cada semana</span>
-            </label>
-            <label id="cal-repetir-hasta-campo" class="cal-campo oculta">
-              <span>Repetir hasta</span>
-              <input id="cal-repetir-hasta" type="date">
-            </label>
-            <label id="cal-completada-campo" class="cal-check cal-campo-ancho oculta">
-              <input id="cal-completada" type="checkbox">
-              <span>Tarea completada</span>
-            </label>
-            <label class="cal-campo cal-campo-ancho">
-              <span>Notas</span>
-              <textarea id="cal-notas" name="notas" maxlength="500" rows="3"></textarea>
-            </label>
-          </div>
-          <p id="cal-form-error" class="cal-form-error" role="alert"></p>
-          <div class="cal-modal-acciones">
-            <button id="cal-eliminar" class="cal-btn-peligro oculta" type="button">Eliminar</button>
-            <span class="cal-modal-espacio"></span>
-            <button id="cal-cancelar" class="cal-btn-secundario" type="button">Cancelar</button>
-            <button class="cal-btn-primario" type="submit">Guardar</button>
-          </div>
-        </form>
-      </div>
-    </section>
+          <div
+            id="calendario-estado"
+            class="calendario-estado oculta"
+            role="status"
+          ></div>
+          <div
+            id="calendario-contenido"
+            class="calendario-contenido"
+            aria-live="polite"
+          ></div>
+          <button id="cal-proxima" class="cal-proxima" type="button">
+            <span class="cal-proxima-etiqueta">Siguiente</span>
+            <strong id="cal-proxima-titulo">Sin actividades próximas</strong>
+            <span id="cal-proxima-hora"></span>
+            <i class="ph ph-arrow-right" aria-hidden="true"></i>
+          </button>
+        </div>
 
+        <div id="cal-modal" class="cal-modal-fondo oculta" role="presentation">
+          <form
+            id="cal-formulario"
+            class="cal-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="cal-form-titulo"
+          >
+            <div class="cal-modal-cabecera">
+              <div>
+                <p class="calendario-eyebrow">Actividad</p>
+                <h3 id="cal-form-titulo">Nueva actividad</h3>
+              </div>
+              <button
+                id="cal-cerrar-modal"
+                class="cal-btn-icono"
+                type="button"
+                aria-label="Cerrar"
+              >
+                <i class="ph ph-x"></i>
+              </button>
+            </div>
+            <input id="cal-id" type="hidden" />
+            <div class="cal-form-grid">
+              <label class="cal-campo cal-campo-ancho">
+                <span>Título</span>
+                <input
+                  id="cal-titulo"
+                  name="titulo"
+                  type="text"
+                  maxlength="120"
+                  required
+                  autocomplete="off"
+                />
+              </label>
+              <label class="cal-campo">
+                <span>Tipo</span>
+                <select id="cal-tipo" name="tipo">
+                  <option value="clase">Clase</option>
+                  <option value="tarea">Tarea</option>
+                  <option value="examen">Examen</option>
+                  <option value="descanso">Descanso</option>
+                </select>
+              </label>
+              <label class="cal-campo">
+                <span>Materia</span>
+                <input
+                  id="cal-materia"
+                  name="materia"
+                  type="text"
+                  maxlength="80"
+                  autocomplete="off"
+                />
+              </label>
+              <label class="cal-campo">
+                <span>Prioridad</span>
+                <select id="cal-prioridad" name="prioridad">
+                  <option value="baja">Baja</option>
+                  <option value="media" selected>Media</option>
+                  <option value="alta">Alta</option>
+                </select>
+              </label>
+              <label class="cal-check">
+                <input id="cal-todo-dia" type="checkbox" />
+                <span>Todo el día</span>
+              </label>
+              <label class="cal-campo">
+                <span>Inicio</span>
+                <input
+                  id="cal-inicio"
+                  name="inicio"
+                  type="datetime-local"
+                  required
+                />
+              </label>
+              <label class="cal-campo">
+                <span>Fin o fecha límite</span>
+                <input id="cal-fin" name="fin" type="datetime-local" required />
+              </label>
+              <label id="cal-repetir-campo" class="cal-check">
+                <input id="cal-repetir" type="checkbox" />
+                <span>Repetir cada semana</span>
+              </label>
+              <label id="cal-repetir-hasta-campo" class="cal-campo oculta">
+                <span>Repetir hasta</span>
+                <input id="cal-repetir-hasta" type="date" />
+              </label>
+              <label
+                id="cal-completada-campo"
+                class="cal-check cal-campo-ancho oculta"
+              >
+                <input id="cal-completada" type="checkbox" />
+                <span>Tarea completada</span>
+              </label>
+              <label class="cal-campo cal-campo-ancho">
+                <span>Notas</span>
+                <textarea
+                  id="cal-notas"
+                  name="notas"
+                  maxlength="500"
+                  rows="3"
+                ></textarea>
+              </label>
+            </div>
+            <p id="cal-form-error" class="cal-form-error" role="alert"></p>
+            <div class="cal-modal-acciones">
+              <button
+                id="cal-eliminar"
+                class="cal-btn-peligro oculta"
+                type="button"
+              >
+                Eliminar
+              </button>
+              <span class="cal-modal-espacio"></span>
+              <button
+                id="cal-cancelar"
+                class="cal-btn-secundario"
+                type="button"
+              >
+                Cancelar
+              </button>
+              <button class="cal-btn-primario" type="submit">Guardar</button>
+            </div>
+          </form>
+        </div>
+      </section>
 
-    <section id="vista-Notas" class="vista-app oculta">
-      <div class="contenedor-notas-split">
-        <aside class="panel-archivos" id="panel-archivos" data-estado="sin-vault">
-          <div class="header-archivos">
-            <h3>Tus notas</h3>
-            <div class="acciones-archivos">
-              <button id="btn-nueva-nota" title="Nueva nota" aria-label="Nueva nota"><i class="ph ph-file-plus"></i></button>
-              <button id="btn-nueva-carpeta" title="Nueva carpeta" aria-label="Nueva carpeta"><i class="ph ph-folder-plus"></i></button>
-              <button id="btn-refrescar" title="Actualizar desde el disco" aria-label="Actualizar árbol"><i class="ph ph-arrows-clockwise"></i></button>
+      <section id="vista-Notas" class="vista-app oculta">
+        <div class="contenedor-notas-split">
+          <aside
+            class="panel-archivos"
+            id="panel-archivos"
+            data-estado="sin-vault"
+          >
+            <div class="header-archivos">
+              <h3>Tus notas</h3>
+              <div class="acciones-archivos">
+                <button
+                  id="btn-nueva-nota"
+                  title="Nueva nota"
+                  aria-label="Nueva nota"
+                >
+                  <i class="ph ph-file-plus"></i>
+                </button>
+                <button
+                  id="btn-nueva-carpeta"
+                  title="Nueva carpeta"
+                  aria-label="Nueva carpeta"
+                >
+                  <i class="ph ph-folder-plus"></i>
+                </button>
+                <button
+                  id="btn-refrescar"
+                  title="Actualizar desde el disco"
+                  aria-label="Actualizar árbol"
+                >
+                  <i class="ph ph-arrows-clockwise"></i>
+                </button>
+              </div>
             </div>
-          </div>
-          <ul id="lista-archivos" class="arbol-archivos oculta" role="tree" aria-label="Notas y carpetas" tabindex="0"></ul>
-          <div id="vault-estado" class="vault-estado">
-            <h4 id="vault-estado-titulo"></h4>
-            <p id="vault-estado-texto"></p>
-            <div id="vault-estado-acciones" class="vault-estado-acciones"></div>
-          </div>
-          <div class="footer-archivos">
-            <div id="menu-vault" class="menu-flotante menu-vault oculta" role="menu"></div>
-            <button id="btn-crear-vault" class="btn-vault" aria-haspopup="menu" aria-expanded="false">
-              <i class="ph ph-vault"></i>
-              <span id="vault-nombre">Elegir carpeta</span>
-              <i class="ph ph-caret-up-down"></i>
-            </button>
-          </div>
-        </aside>
-        <div class="divisor-redimensionable" id="divisor-notas" role="separator" aria-orientation="vertical" aria-label="Ajustar ancho del panel de notas" tabindex="0"></div>
-        <div class="panel-editor" id="panel-editor">
-          <div class="editor-vacio" id="editor-vacio">
-            <i class="ph ph-note-pencil"></i>
-            <p id="editor-vacio-texto"></p>
-            <button id="btn-vacio-accion" class="btn-primario oculta" type="button"></button>
-          </div>
-          <div class="editor-contenido oculta" id="editor-contenido">
-            <div class="editor-herramientas">
-              <input type="text" id="nota-titulo" placeholder="Título de la nota..." aria-label="Título de la nota" autocomplete="off" spellcheck="false">
+            <ul
+              id="lista-archivos"
+              class="arbol-archivos oculta"
+              role="tree"
+              aria-label="Notas y carpetas"
+              tabindex="0"
+            ></ul>
+            <div id="vault-estado" class="vault-estado">
+              <h4 id="vault-estado-titulo"></h4>
+              <p id="vault-estado-texto"></p>
+              <div
+                id="vault-estado-acciones"
+                class="vault-estado-acciones"
+              ></div>
             </div>
-            <div class="area-trabajo-nota" id="area-trabajo-nota">
-              <textarea id="nota-contenido" placeholder="Escribe aquí usando Markdown..." aria-label="Contenido de la nota"></textarea>
-              <div id="nota-preview" class="markdown-view" role="region" aria-label="Vista previa"></div>
+            <div class="footer-archivos">
+              <div
+                id="menu-vault"
+                class="menu-flotante menu-vault oculta"
+                role="menu"
+              ></div>
+              <button
+                id="btn-crear-vault"
+                class="btn-vault"
+                aria-haspopup="menu"
+                aria-expanded="false"
+              >
+                <i class="ph ph-vault"></i>
+                <span id="vault-nombre">Elegir carpeta</span>
+                <i class="ph ph-caret-up-down"></i>
+              </button>
             </div>
-            <div class="status-bar">
-              <span class="ruta-archivo" id="ruta-archivo"></span>
-              <span class="estado-derecha">
-                <span class="estado-guardado" id="estado-guardado" data-estado="guardado" role="status">Guardado</span>
-                <span class="contador-palabras" id="contador-palabras">0 palabras</span>
-              </span>
+          </aside>
+          <div
+            class="divisor-redimensionable"
+            id="divisor-notas"
+            role="separator"
+            aria-orientation="vertical"
+            aria-label="Ajustar ancho del panel de notas"
+            tabindex="0"
+          ></div>
+          <div class="panel-editor" id="panel-editor">
+            <div class="editor-vacio" id="editor-vacio">
+              <i class="ph ph-note-pencil"></i>
+              <p id="editor-vacio-texto"></p>
+              <button
+                id="btn-vacio-accion"
+                class="btn-primario oculta"
+                type="button"
+              ></button>
+            </div>
+            <div class="editor-contenido oculta" id="editor-contenido">
+              <div class="editor-herramientas">
+                <input
+                  type="text"
+                  id="nota-titulo"
+                  placeholder="Título de la nota..."
+                  aria-label="Título de la nota"
+                  autocomplete="off"
+                  spellcheck="false"
+                />
+              </div>
+              <div class="area-trabajo-nota" id="area-trabajo-nota">
+                <textarea
+                  id="nota-contenido"
+                  placeholder="Escribe aquí usando Markdown..."
+                  aria-label="Contenido de la nota"
+                ></textarea>
+                <div
+                  id="nota-preview"
+                  class="markdown-view"
+                  role="region"
+                  aria-label="Vista previa"
+                ></div>
+              </div>
+              <div class="status-bar">
+                <span class="ruta-archivo" id="ruta-archivo"></span>
+                <span class="estado-derecha">
+                  <span
+                    class="estado-guardado"
+                    id="estado-guardado"
+                    data-estado="guardado"
+                    role="status"
+                    >Guardado</span
+                  >
+                  <span class="contador-palabras" id="contador-palabras"
+                    >0 palabras</span
+                  >
+                </span>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-
-
-
-
-    <section id="vista-Temporizador" class="vista-app oculta">
-      <h2>RELOJ</h2>
-      <div id="reloj">25:00</div>
-      <button id="btn-iniciar-tiempo">Iniciar</button>
-    </section>
-
-    <section id="vista-Perfil" class="vista-app oculta">
-      <div class="contenedor-notas-split">
-        <aside class="panel-archivos">
-          <div class="header-archivos">
-            <h3>Configuración</h3>
+      <section id="pomodoro-section" class="pomodoro-container">
+        <!-- El fondo de imagen se aplica desde el CSS en la clase .pomodoro-container -->
+        <div class="pomodoro-overlay">
+          <div class="pomodoro-content">
+            <h2 class="pomodoro-title">Temporizador Pomodoro</h2>
+            <div id="time-display" class="time-display">25:00</div>
+            <div class="pomodoro-controls">
+              <button id="btn-start" class="pomodoro-btn primary">
+                Iniciar
+              </button>
+              <button id="btn-pause" class="pomodoro-btn secondary">
+                Pausar
+              </button>
+            </div>
           </div>
-          <div class="perfil-config">
-            <p class="perfil-etiqueta">Carpeta de notas</p>
-            <p id="perfil-ruta" class="perfil-ruta">Sin carpeta seleccionada</p>
-            <button id="btn-perfil-ruta" class="btn-secundario" type="button" title="Cambiar la carpeta donde se guardan tus notas">Cambiar carpeta</button>
-          </div>
-        </aside>
-        <div class="divisor-redimensionable"></div>
-        <div class="panel-editor">
-          <h2>Opciones de Perfil</h2>
         </div>
-      </div>
-    </section>
-  </main>
+      </section>
+
+      <section id="vista-Perfil" class="vista-app oculta">
+        <div class="contenedor-notas-split">
+          <aside class="panel-archivos">
+            <div class="header-archivos">
+              <h3>Configuración</h3>
+            </div>
+            <div class="perfil-config">
+              <p class="perfil-etiqueta">Carpeta de notas</p>
+              <p id="perfil-ruta" class="perfil-ruta">
+                Sin carpeta seleccionada
+              </p>
+              <button
+                id="btn-perfil-ruta"
+                class="btn-secundario"
+                type="button"
+                title="Cambiar la carpeta donde se guardan tus notas"
+              >
+                Cambiar carpeta
+              </button>
+            </div>
+          </aside>
+          <div class="divisor-redimensionable"></div>
+          <div class="panel-editor">
+            <h2>Opciones de Perfil</h2>
+          </div>
+        </div>
+      </section>
+    </main>
   </body>
 </html>
