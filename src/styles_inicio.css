@@ -1,0 +1,108 @@
+:root {
+  --color-fundo: #F6EAD8;       /* Beige claro */
+  --color-card: #D8B28C;        /* Tono arena / madera clara */
+  --color-borde: #AC9782;       /* Tono pardo neutro */
+  --color-terracota: #A35A43;   /* Terracota */
+  --color-texto: #4A2E22;       /* Café oscuro */
+  --color-cinta: rgba(230, 210, 180, 0.7); /* Cinta semitransparente */
+}
+
+#vista-Inicio {
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-fundo);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.inicio-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+}
+
+.reloj-card {
+  position: relative;
+  background-color: var(--color-card);
+  border: 2px solid var(--color-borde);
+  border-radius: 12px;
+  padding: 40px 80px;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(74, 46, 34, 0.15);
+}
+
+/* Detalle de Cinta Adhesiva (esquina superior izquierda) */
+.cinta-adhesiva {
+  position: absolute;
+  top: -12px;
+  left: -20px;
+  width: 90px;
+  height: 28px;
+  background-color: var(--color-cinta);
+  transform: rotate(-25deg);
+  border: 1px solid rgba(172, 151, 130, 0.4);
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.08);
+}
+
+
+.reloj-hora {
+  font-family: 'Outfit', sans-serif;
+  font-size: 5rem;
+  font-weight: 600;
+  color: var(--color-texto);
+  letter-spacing: 2px;
+  line-height: 1;
+}
+
+.reloj-fecha {
+  margin-top: 12px;
+  font-family: 'Inter', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: var(--color-terracota);
+  text-transform: capitalize;
+}
+
+.titulo-studytime {
+  font-family: 'Outfit', cursive, sans-serif;
+  font-size: 3.5rem;
+  font-weight: 600;
+  color: var(--color-texto);
+  letter-spacing: 1px;
+}
+
+/* Tarjeta de Próximo Evento */
+.proximo-evento-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  background-color: rgba(216, 178, 140, 0.3); /* Tono arena suave */
+  border: 1px dashed var(--color-borde);
+  border-radius: 8px;
+  padding: 12px 24px;
+  min-width: 240px;
+  text-align: center;
+}
+
+.evento-etiqueta {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--color-terracota);
+  font-weight: 600;
+}
+
+.evento-titulo {
+  font-size: 1.1rem;
+  color: var(--color-texto);
+  font-weight: 600;
+}
+
+.evento-hora {
+  font-size: 0.9rem;
+  color: var(--color-terracota);
+}

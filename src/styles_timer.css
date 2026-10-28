@@ -79,3 +79,6 @@
 .pomodoro-btn.secondary:hover {
     background-color: #343a40;
 }
+.oculta {
+    display: none !important;
+}

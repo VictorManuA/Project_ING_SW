@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="stles_notas.css" />
     <link rel="stylesheet" href="styles_calendario.css" />
     <link rel="stylesheet" href="styles_timer.css" />
+    <link rel="stylesheet" href="styles_inicio.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Study.Time</title>
     <script src="./vendor/marked.min.js"></script>
@@ -46,8 +47,24 @@
     </nav>
     <main class="contenido-principal">
       <section id="vista-Inicio" class="vista-app">
-        <h2>Inicio</h2>
-        <p>Lugar de trabajo de MENU PRINCIPAL</p>
+        <div class="inicio-container">
+          <!--Tarjeta con hora actual-->
+          <div class="reloj-card">
+            <div class="cinta-adhesiva"></div>
+            <div class="reloj-hora" id="reloj-inicio">00:00</div>
+            <div class="reloj-fecha" id="fecha-inicio">Cargando fecha...</div>
+          </div>
+          <!--Recuadro para mostrar el proximo evento-->
+          <div class="proximo-evento-card" id="tarjeta-proximo-evento">
+            <span class="evento-etiqueta">Próxima actividad</span>
+            <strong class="evento-titulo" id="inicio-evento-titulo"
+              >Sin eventos próximos</strong
+            >
+            <span class="evento-hora" id="inicio-evento-hora">--:--</span>
+          </div>
+
+          <h1 class="titulo-studytime">StudyTime</h1>
+        </div>
       </section>
 
       <section id="vista-Calendario" class="vista-app oculta">
@@ -392,7 +409,7 @@
         </div>
       </section>
 
-      <section id="pomodoro-section" class="pomodoro-container">
+      <section id="pomodoro-section" class="pomodoro-container oculta">
         <!-- El fondo de imagen se aplica desde el CSS en la clase .pomodoro-container -->
         <div class="pomodoro-overlay">
           <div class="pomodoro-content">
