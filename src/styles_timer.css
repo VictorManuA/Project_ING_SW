@@ -7,7 +7,6 @@
     overflow: hidden;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
     
-    /* COLOCA AQUÍ LA URL DE TU IMAGEN DE FONDO */
     background-image: url('./assets/pomodoroBg.jpg');
     
     background-color: #f4f4f9; /* Color de respaldo */
@@ -79,6 +78,7 @@
 .pomodoro-btn.secondary:hover {
     background-color: #343a40;
 }
-.oculta {
-    display: none !important;
+
+#vista-Temporizador.vista-app:not(.oculta) {
+  display: block;
 }
