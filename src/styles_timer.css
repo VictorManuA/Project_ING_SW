@@ -1,7 +1,8 @@
 .pomodoro-container {
     position: relative;
     width: 100%;
-    max-width: 600px;
+    max-height: 800px;
+    max-width: 1200px;
     margin: 2rem auto;
     border-radius: 16px;
     overflow: hidden;
