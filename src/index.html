@@ -409,13 +409,35 @@
         <div class="pomodoro-overlay">
           <div class="pomodoro-content">
             <h2 class="pomodoro-title">Temporizador Pomodoro</h2>
+
+            <!-- Configuración y edición de tiempo -->
+            <div class="pomodoro-config">
+              <div class="presets">
+                <button type="button" class="btn-preset active" data-minutos="25">25 min</button>
+                <button type="button" class="btn-preset" data-minutos="5">5 min</button>
+                <button type="button" class="btn-preset" data-minutos="15">15 min</button>
+              </div>
+              <div class="custom-time">
+                <label for="input-minutos">Personalizado:</label>
+                <input type="number" id="input-minutos" min="1" max="180" value="25" />
+                <span>min</span>
+                <button type="button" id="btn-ajustar-tiempo" class="pomodoro-btn secondary btn-small">Aplicar</button>
+              </div>
+            </div>
+
+            <!-- Pantalla del tiempo -->
             <div id="time-display" class="time-display">25:00</div>
+
+            <!-- Controles -->
             <div class="pomodoro-controls">
               <button id="btn-start" class="pomodoro-btn primary">
                 Iniciar
               </button>
               <button id="btn-pause" class="pomodoro-btn secondary">
                 Pausar
+              </button>
+              <button id="btn-reset" class="pomodoro-btn secondary">
+                Reiniciar
               </button>
             </div>
           </div>

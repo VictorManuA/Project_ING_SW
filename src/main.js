@@ -91,9 +91,14 @@ document.addEventListener("DOMContentLoaded", () => {
   const timeDisplay = document.getElementById("time-display");
   const btnStart = document.getElementById("btn-start");
   const btnPause = document.getElementById("btn-pause");
+  const btnReset = document.getElementById("btn-reset");
+  const inputMinutos = document.getElementById("input-minutos");
+  const btnAjustarTiempo = document.getElementById("btn-ajustar-tiempo");
+  const presetButtons = document.querySelectorAll(".btn-preset");
 
-  let timeLeft = 1500; // 25 minutos en segundos (25 * 60)
-  let timerInterval;
+  let initialMinutes = 25;
+  let timeLeft = initialMinutes * 60; // tiempo en segundos
+  let timerInterval = null;
   let isRunning = false;
 
   function updateDisplay() {
@@ -106,14 +111,18 @@ document.addEventListener("DOMContentLoaded", () => {
   function startTimer() {
     if (!isRunning && timeLeft > 0) {
       isRunning = true;
+      btnStart.disabled = true;
+      btnPause.disabled = false;
+
       timerInterval = setInterval(() => {
         timeLeft--;
         updateDisplay();
 
-        if (timeLeft === 0) {
+        if (timeLeft <= 0) {
           clearInterval(timerInterval);
           isRunning = false;
-          alert("¡Tiempo Pomodoro terminado! Tómate un descanso.");
+          btnStart.disabled = false;
+          alert("¡Tiempo terminado! Tómate un descanso.");
         }
       }, 1000);
     }
@@ -123,12 +132,54 @@ document.addEventListener("DOMContentLoaded", () => {
     if (isRunning) {
       clearInterval(timerInterval);
       isRunning = false;
+      btnStart.disabled = false;
     }
   }
 
+  function resetTimer() {
+    pauseTimer();
+    timeLeft = initialMinutes * 60;
+    updateDisplay();
+  }
+
+  // Cambiar el tiempo base del temporizador
+  function setTimerMinutes(minutos) {
+    pauseTimer();
+    initialMinutes = Math.max(1, parseInt(minutos, 10) || 1);
+    timeLeft = initialMinutes * 60;
+    inputMinutos.value = initialMinutes;
+    updateDisplay();
+  }
+
+  // Eventos de control
   btnStart.addEventListener("click", startTimer);
   btnPause.addEventListener("click", pauseTimer);
+  btnReset.addEventListener("click", resetTimer);
 
-  // Inicializar la pantalla con el tiempo por defecto
+  // Aplicar tiempo manual desde el input
+  btnAjustarTiempo.addEventListener("click", () => {
+    setTimerMinutes(inputMinutos.value);
+    presetButtons.forEach((btn) => btn.classList.remove("active"));
+  });
+
+  // Permitir presionar 'Enter' en el input de minutos
+  inputMinutos.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      setTimerMinutes(inputMinutos.value);
+      presetButtons.forEach((btn) => btn.classList.remove("active"));
+    }
+  });
+
+  // Botones de presets rápidos (25, 5, 15 min)
+  presetButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      presetButtons.forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
+      const mins = parseInt(btn.dataset.minutos, 10);
+      setTimerMinutes(mins);
+    });
+  });
+
+  // Inicializar reloj
   updateDisplay();
 });
