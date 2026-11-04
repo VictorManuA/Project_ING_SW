@@ -38,43 +38,44 @@ body {
     width: 100%;
     height: 100%;
 }
-/*--------------------------------*/
 .btn-toggle-zen {
-    position: absolute;
-    top: 15px;
-    left: 15px;
-    z-index: 100;
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    border: 1px solid rgba(101, 67, 33, 0.35);
-    background: rgba(234, 223, 203, 0.9);
-    color: rgb(74, 46, 34);
-    font-size: 1.25rem;
+    position: relative;
+    margin-left: 5px;
+    margin-top: 125px;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%; /* Totalmente circular */
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    background: rgba(151, 87, 78, 0.50); /* Color de las pestañas */
+    color: rgb(234, 223, 203);
+    font-size: 1.3rem;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-    transition: all 0.25s ease;
+    
+    /* Se desplaza hacia la franja izquierda para quedar completamente fuera del cuadro amarillo */
+    transform: translateX(-50px);
+    margin-bottom: 25px; /* Separación con la pestaña de Inicio */
+    
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(6px);
+    transition: transform 0.25s ease, background-color 0.2s ease, box-shadow 0.25s ease;
+    z-index: 25;
 }
-
 .btn-toggle-zen:hover {
-    background: rgb(245, 237, 222);
-    transform: scale(1.08);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transform: translateX(-50px) scale(1.12);
+    background-color: rgb(140, 96, 71);
+    color: #ffffff;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
 }
-body {
-    transition: background-image 0.4s ease;
+.btn-toggle-zen i {
+    font-size: 22px;
+    margin: 0; /* Ícono perfectamente centrado en el círculo */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-.contenido-principal {
-    transition: background-color 0.35s ease, box-shadow 0.35s ease;
-}
-
-.vista-app {
-    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
-}
-/* 1. Quita el difuminado */
 body.modo-fondo-limpio {
     background-image: url('./assets/Library2.jpeg') !important;
 }
@@ -82,20 +83,20 @@ body.modo-fondo-limpio .vista-app {
     opacity: 0 !important;
     visibility: hidden !important;
     pointer-events: none !important;
-    transform: scale(0.98);
 }
 body.modo-fondo-limpio .contenido-principal {
     background-color: transparent !important;
     box-shadow: none !important;
 }
-body.modo-fondo-limpio .pestañas-laterales {
+body.modo-fondo-limpio .tab-btn {
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.3s ease;
+    transform: translateX(0);
+    transition: opacity 0.3s ease, transform 0.3s ease;
 }
 body.modo-fondo-limpio .btn-toggle-zen {
-    background: rgba(0, 0, 0, 0.45);
+    background: rgba(0, 0, 0, 0.5) !important;
+    border-color: rgba(255, 255, 255, 0.6);
     color: #ffffff;
-    border-color: rgba(255, 255, 255, 0.5);
-    backdrop-filter: blur(5px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
 }
