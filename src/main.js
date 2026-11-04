@@ -62,6 +62,23 @@ window.addEventListener("DOMContentLoaded", async () => {
     Temporizador: () => {},
     Perfil: () => {},
   };
+    // Botón constante para alternar modo fondo limpio
+  const btnToggleZen = document.getElementById("btn-toggle-zen");
+  if (btnToggleZen) {
+    btnToggleZen.addEventListener("click", () => {
+      const activo = document.body.classList.toggle("modo-fondo-limpio");
+      const icono = btnToggleZen.querySelector("i");
+
+      if (icono) {
+        icono.className = activo ? "ph ph-eye" : "ph ph-eye-slash";
+      }
+
+      btnToggleZen.setAttribute(
+        "title",
+        activo ? "Mostrar opciones" : "Ocultar opciones / Ver solo fondo"
+      );
+    });
+  }
 
   tabs.forEach((tab) => {
     tab.addEventListener("click", () => {
